@@ -1,0 +1,297 @@
+-- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
+--
+-- Host: localhost    Database: interactivegym
+-- ------------------------------------------------------
+-- Server version	5.5.5-10.1.36-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Current Database: `interactivegym`
+--
+
+/*!40000 DROP DATABASE IF EXISTS `interactivegym`*/;
+
+
+
+USE [interactivegym];
+
+--
+-- Table structure for table `archiwum`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE archiwum (
+  [idOsoba] int NOT NULL,
+  [idTreningu] int NOT NULL,
+  [dataRozpoczecia] date NOT NULL,
+  [dataZakonczenia] date NOT NULL
+ ,
+  CONSTRAINT [archiwum_ibfk_1] FOREIGN KEY ([idOsoba]) REFERENCES osoba ([idOsoba]),
+  CONSTRAINT [archiwum_ibfk_2] FOREIGN KEY ([idTreningu]) REFERENCES trening ([idTreningu])
+) ;
+
+CREATE INDEX [idOsoba] ON archiwum ([idOsoba]);
+CREATE INDEX [idTreningu] ON archiwum ([idTreningu]);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `archiwum`
+--
+
+/*!40000 ALTER TABLE `archiwum` DISABLE KEYS */;
+INSERT INTO archiwum VALUES (5,1,'2019-01-24','2019-01-31');
+/*!40000 ALTER TABLE `archiwum` ENABLE KEYS */;
+
+--
+-- Table structure for table `cwiczenie`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE cwiczenie (
+  [idCwiczenia] int NOT NULL IDENTITY,
+  [nazwa] varchar(max) NOT NULL,
+  [typ] enum('Plecy','K. piersiowa','Bicepsy','Tricepsy','Brzuch','Barki','Nogi','Kardio') NOT NULL,
+  [sprzêt] varchar(max),
+  PRIMARY KEY ([idCwiczenia])
+)  ;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cwiczenie`
+--
+
+/*!40000 ALTER TABLE `cwiczenie` DISABLE KEYS */;
+INSERT INTO cwiczenie VALUES (1,'£aweczka wyciskanie sztangi','K. piersiowa','£aweczka');
+/*!40000 ALTER TABLE `cwiczenie` ENABLE KEYS */;
+
+--
+-- Table structure for table `dostep`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE dostep (
+  [idDostep] int NOT NULL IDENTITY,
+  [nazwa] varchar(15) NOT NULL,
+  PRIMARY KEY ([idDostep])
+)  ;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dostep`
+--
+
+/*!40000 ALTER TABLE `dostep` DISABLE KEYS */;
+INSERT INTO dostep VALUES (1,'Trener');
+/*!40000 ALTER TABLE `dostep` ENABLE KEYS */;
+
+--
+-- Table structure for table `osoba`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE osoba (
+  [idOsoba] int NOT NULL IDENTITY,
+  [PESEL] bigint NOT NULL,
+  [imie] varchar(25) NOT NULL,
+  [nazwisko] varchar(max) NOT NULL,
+  [mail] varchar(max) NOT NULL,
+  [telefon] varchar(9) NOT NULL,
+  [data_rejestracji] date NOT NULL,
+  [DKU] date DEFAULT NULL ,
+  [waga] smallint check ([waga] > 0) DEFAULT NULL,
+  [wzrost] smallint check ([wzrost] > 0) DEFAULT NULL,
+  [rola_id] int NOT NULL,
+  [login] varchar(50) NOT NULL,
+  [haslo] varchar(50) NOT NULL,
+  PRIMARY KEY ([idOsoba]),
+  CONSTRAINT [Tel_UNIQUE] UNIQUE  ([telefon]),
+  CONSTRAINT [PESEL_UNIQUE] UNIQUE  ([PESEL]),
+  CONSTRAINT [login_UNIQUE] UNIQUE  ([login]),
+  CONSTRAINT [haslo_UNIQUE] UNIQUE  ([haslo])
+ ,
+  CONSTRAINT [osoba_ibfk_1] FOREIGN KEY ([rola_id]) REFERENCES rola ([idRola])
+)   ;
+
+CREATE INDEX [rola_id] ON osoba ([rola_id]);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `osoba`
+--
+
+/*!40000 ALTER TABLE `osoba` DISABLE KEYS */;
+INSERT INTO osoba VALUES (5,94102956785,'Lukasz','Barczykowski','Example@gmail.com','454433234','2019-01-24','2019-01-31',75,175,1,'GUNJack','123123'),(6,95051084736,'Marta','Matuszak','Example2@gmail.com','876546903','0000-00-00','2019-02-06',50,165,2,'Martta','321321'),(7,88121385734,'Katarzyna','Nowak','Jakis@gmail.com','567098123','2019-02-07','2019-02-14',123,150,2,'FatGirl123','123'),(8,88010145813,'Janusz','Tracz','JanNusz@gmail.com','543890160','2019-01-24','2019-02-06',150,200,1,'Jannn','taknie'),(9,70030549230,'Bart³omiej','Zuzek','ZuzBar@gmail.com','784267099','2019-02-07','2019-02-14',80,185,2,'Barzzuz','qwe');
+/*!40000 ALTER TABLE `osoba` ENABLE KEYS */;
+
+--
+-- Table structure for table `progress`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE progress (
+  [idProgress] int NOT NULL IDENTITY,
+  [nazwa] varchar(15) NOT NULL,
+  PRIMARY KEY ([idProgress])
+)  ;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `progress`
+--
+
+/*!40000 ALTER TABLE `progress` DISABLE KEYS */;
+INSERT INTO progress VALUES (1,'Klatka');
+/*!40000 ALTER TABLE `progress` ENABLE KEYS */;
+
+--
+-- Table structure for table `rola`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE rola (
+  [idRola] int NOT NULL IDENTITY,
+  [Nazwa] varchar(15) NOT NULL,
+  PRIMARY KEY ([idRola])
+)  ;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rola`
+--
+
+/*!40000 ALTER TABLE `rola` DISABLE KEYS */;
+INSERT INTO rola VALUES (1,'Trener'),(2,'U¿ytkownik ');
+/*!40000 ALTER TABLE `rola` ENABLE KEYS */;
+
+--
+-- Table structure for table `rola-dostep`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE rola-dostep (
+  [idRola] int NOT NULL,
+  [idDostep] int NOT NULL
+ ,
+  CONSTRAINT [idDostep] FOREIGN KEY ([idDostep]) REFERENCES dostep ([idDostep]) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT [idRola] FOREIGN KEY ([idRola]) REFERENCES rola ([idRola]) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ;
+
+CREATE INDEX [idDostep_idx] ON rola-dostep ([idDostep]);
+CREATE INDEX [idRola] ON rola-dostep ([idRola]);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rola-dostep`
+--
+
+/*!40000 ALTER TABLE `rola-dostep` DISABLE KEYS */;
+INSERT INTO rola-dostep VALUES (1,1);
+/*!40000 ALTER TABLE `rola-dostep` ENABLE KEYS */;
+
+--
+-- Table structure for table `trening`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE trening (
+  [idTreningu] int NOT NULL IDENTITY,
+  [nazwa] varchar(15) NOT NULL,
+  [typ] varchar(50) NOT NULL,
+  PRIMARY KEY ([idTreningu]),
+  CONSTRAINT [Nazwa_UNIQUE] UNIQUE  ([nazwa])
+)  ;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `trening`
+--
+
+/*!40000 ALTER TABLE `trening` DISABLE KEYS */;
+INSERT INTO trening VALUES (1,'Fat-burn','Cardio'),(2,'Trening góra','Work-out '),(3,'Bieg','Kondycja');
+/*!40000 ALTER TABLE `trening` ENABLE KEYS */;
+
+--
+-- Table structure for table `trening-cwiczenia`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE trening-cwiczenia (
+  [idTreningu] int NOT NULL,
+  [idCwiczenia] int NOT NULL,
+  [serie] smallint NOT NULL,
+  [powtorzenia] smallint NOT NULL,
+  [przerwa] smallint DEFAULT NULL
+ ,
+  CONSTRAINT [ID_cwiczenia] FOREIGN KEY ([idCwiczenia]) REFERENCES cwiczenie ([idCwiczenia]) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT [ID_treningu] FOREIGN KEY ([idTreningu]) REFERENCES trening ([idTreningu]) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ;
+
+CREATE INDEX [ID_Treningu_idx] ON trening-cwiczenia ([idTreningu]);
+CREATE INDEX [ID_cwiczenia_idx] ON trening-cwiczenia ([idCwiczenia]);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `trening-cwiczenia`
+--
+
+/*!40000 ALTER TABLE `trening-cwiczenia` DISABLE KEYS */;
+INSERT INTO trening-cwiczenia VALUES (1,1,4,12,2);
+/*!40000 ALTER TABLE `trening-cwiczenia` ENABLE KEYS */;
+
+--
+-- Table structure for table `uzytkownik-progress`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE uzytkownik-progress (
+  [idUzytkownika] int NOT NULL,
+  [idProgressu] int NOT NULL,
+  [wymiar] smallint NOT NULL DEFAULT '0',
+  [max] smallint NOT NULL DEFAULT '0'
+ ,
+  CONSTRAINT [idProgress] FOREIGN KEY ([idProgressu]) REFERENCES progress ([idProgress]) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT [idUzytkownika] FOREIGN KEY ([idUzytkownika]) REFERENCES osoba ([idOsoba]) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ;
+
+CREATE INDEX [idProgress_idx] ON uzytkownik-progress ([idProgressu]);
+CREATE INDEX [idUzytkownika] ON uzytkownik-progress ([idUzytkownika]);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `uzytkownik-progress`
+--
+
+/*!40000 ALTER TABLE `uzytkownik-progress` DISABLE KEYS */;
+INSERT INTO uzytkownik-progress VALUES (5,1,98,112);
+/*!40000 ALTER TABLE `uzytkownik-progress` ENABLE KEYS */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-01-30 15:41:30
