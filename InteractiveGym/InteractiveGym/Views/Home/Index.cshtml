@@ -1,0 +1,24 @@
+﻿
+@{
+        ViewBag.Title = "Interaktywna siłownia";
+    //Layout = null;
+    /*
+    @Html.ActionLink("Lista książek", "ListaKsiazek", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    @Html.ActionLink("Lista autorów", "ListaAutorow", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    @Html.ActionLink("Edytuj/Dodaj książke", "index", "EdycjaKsiazki", new { area = "" }, new { @class = "navbar-brand" })
+    @Html.ActionLink("Edytuj/dopisz autora", "Index", "EdycjaAutora", new { area = "" }, new { @class = "navbar-brand" })
+*/
+}
+
+<h2>Menu</h2>
+<div>
+    <!--przyciski z góry do podstron +ify jeśli rola zaloowanego użytkownika == 0 (trener)-->
+    <!--Profil  Treningi    Archiwum   Użytkownicy     treningi/ćwiczenia     -->
+    @Html.ActionLink("Profil", "Profile", "Profile", new { area = "" }, new { @class = "navbar-brand" })
+    @Html.ActionLink("Treningi", "Trenings", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    @Html.ActionLink("Archiwum", "Archive", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+    @Html.ActionLink("Użytkownicy", "Index", "Users", new { area = "" }, new { @class = "navbar-brand" })
+    @Html.ActionLink("Edytuj Treningi/Ćwiczenia", "Index", "Edits", new { area = "" }, new { @class = "navbar-brand" })
+</div>
+
