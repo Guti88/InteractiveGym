@@ -14,11 +14,11 @@
 <div>
     <!--przyciski z góry do podstron +ify jeśli rola zaloowanego użytkownika == 0 (trener)-->
     <!--Profil  Treningi    Archiwum   Użytkownicy     treningi/ćwiczenia     -->
-    @Html.ActionLink("Profil", "Profile", "Profile", new { area = "" }, new { @class = "navbar-brand" })
-    @Html.ActionLink("Treningi", "Trenings", "Home", new { area = "" }, new { @class = "navbar-brand" })
-    @Html.ActionLink("Archiwum", "Archive", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    @Html.ActionLink("Profil", "Profile", "User", new { area ="" }, new { @class = "navbar-brand" })
+    @Html.ActionLink("Treningi", "Index", "Trening", new { area = "" }, new { @class = "navbar-brand" })
+    @Html.ActionLink("Archiwum", "Index", "History", new { area = "" }, new { @class = "navbar-brand" })
 
-    @Html.ActionLink("Użytkownicy", "Index", "Users", new { area = "" }, new { @class = "navbar-brand" })
+    @Html.ActionLink("Użytkownicy", "UsersList", "Home", new { area = "" }, new { @class = "navbar-brand" })
     @Html.ActionLink("Edytuj Treningi/Ćwiczenia", "Index", "Edits", new { area = "" }, new { @class = "navbar-brand" })
 </div>
 

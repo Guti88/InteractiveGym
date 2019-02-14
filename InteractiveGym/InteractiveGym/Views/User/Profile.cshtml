@@ -1,0 +1,98 @@
+﻿@model InteractiveGym.Models.UserDimensions
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Profile</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.user.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user.Id)
+        </dd>
+
+        <dt>
+            Imię i nazwisko
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user.FullName)
+        </dd>
+        </br>
+        <div id="Image"><img src="pakier.png" alt="" /></div>
+        </br>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user.Hight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user.Hight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user.Weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user.Weight)
+        </dd>
+
+        </br> Wymiary:</br>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dimensions.Shoulder)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.dimensions.Shoulder)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.dimensions.Arm)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.dimensions.Arm)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.dimensions.Chest)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.dimensions.Chest)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.dimensions.Waist)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.dimensions.Waist)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.dimensions.Hip)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.dimensions.Hip)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.dimensions.Thigh)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.dimensions.Thigh)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.dimensions.Calf)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.dimensions.Calf)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edytuj profil", "EditUser", "User", new { id = Model.user.Id }) |
+    @Html.ActionLink("Edytuj miary", "EditDim","User", new { id = Model.user.Id }) |
+    @Html.ActionLink("Back", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+</p>

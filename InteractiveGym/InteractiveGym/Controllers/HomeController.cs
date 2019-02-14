@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using TheGym.Models;
 
 namespace InteractiveGym.Controllers
 {
     public class HomeController : Controller
     {
-        GymDb db = new GymDb();
-
+        InteractiveGym.Models.GymDbEntities dB = new Models.GymDbEntities();
         // GET: Home
         public ActionResult Index()
         {
             return View();
         }
-        
+         public ActionResult UsersList()
+        {
+            var users = (from s in dB.Users
+                         orderby s.Id
+                         select s).ToList();
+            return View(users);
+        }
     }
 }

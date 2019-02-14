@@ -52,11 +52,12 @@
   <ItemGroup>
     <Compile Include="Models\Archive.cs" />
     <Compile Include="Models\Exercise.cs" />
-    <Compile Include="Models\Progress.cs" />
+    <Compile Include="Models\Dimensions.cs" />
+    <Compile Include="Models\History.cs" />
     <Compile Include="Models\Trening.cs" />
     <Compile Include="Models\TreningExercise.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserProgress.cs" />
+    <Compile Include="Models\UserPerformance.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

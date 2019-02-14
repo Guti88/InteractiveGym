@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GymDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Archive">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="TreningID" Type="Int32" Nullable="false" />
+    <Property Name="DateStart" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateFinish" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Dimension">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Arm" Type="Single" Nullable="false" />
+    <Property Name="Chest" Type="Single" Nullable="false" />
+    <Property Name="Shoulder" Type="Single" Nullable="false" />
+    <Property Name="Waist" Type="Single" Nullable="false" />
+    <Property Name="Hip" Type="Single" Nullable="false" />
+    <Property Name="Thigh" Type="Single" Nullable="false" />
+    <Property Name="Calf" Type="Single" Nullable="false" />
+    <NavigationProperty Name="Histories" Relationship="Self.FK_dbo_Histories_dbo_Dimensions_dimensions_Id" FromRole="Dimensions" ToRole="Histories" />
+  </EntityType>
+  <EntityType Name="Exercis">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="History">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="weigth" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="dimensions_Id" Type="Int32" />
+    <Property Name="performance_id" Type="Int32" />
+    <NavigationProperty Name="Dimension" Relationship="Self.FK_dbo_Histories_dbo_Dimensions_dimensions_Id" FromRole="Histories" ToRole="Dimensions" />
+    <NavigationProperty Name="UserPerformance" Relationship="Self.FK_dbo_Histories_dbo_UserPerformances_performance_id" FromRole="Histories" ToRole="UserPerformances" />
+  </EntityType>
+  <EntityType Name="TreningExercis">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TreningID" Type="Int32" Nullable="false" />
+    <Property Name="ExerciseID" Type="Int32" Nullable="false" />
+    <Property Name="Series" Type="Int32" Nullable="false" />
+    <Property Name="Reps" Type="Int32" Nullable="false" />
+    <Property Name="Break" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Trening">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Type" Type="Int32" />
+  </EntityType>
+  <EntityType Name="UserPerformance">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="ExerciseID" Type="Int32" Nullable="false" />
+    <Property Name="Max" Type="Single" Nullable="false" />
+    <Property Name="Reps" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Histories" Relationship="Self.FK_dbo_Histories_dbo_UserPerformances_performance_id" FromRole="UserPerformances" ToRole="Histories" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Role" Type="Int32" Nullable="false" />
+    <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Hight" Type="Int32" Nullable="false" />
+    <Property Name="Weight" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_Histories_dbo_Dimensions_dimensions_Id">
+    <End Role="Dimensions" Type="Self.Dimension" Multiplicity="0..1" />
+    <End Role="Histories" Type="Self.History" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dimensions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Histories">
+        <PropertyRef Name="dimensions_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Histories_dbo_UserPerformances_performance_id">
+    <End Role="UserPerformances" Type="Self.UserPerformance" Multiplicity="0..1" />
+    <End Role="Histories" Type="Self.History" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserPerformances">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Histories">
+        <PropertyRef Name="performance_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GymDbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+    <EntitySet Name="Archives" EntityType="Self.Archive" />
+    <EntitySet Name="Dimensions" EntityType="Self.Dimension" />
+    <EntitySet Name="Exercises" EntityType="Self.Exercis" />
+    <EntitySet Name="Histories" EntityType="Self.History" />
+    <EntitySet Name="TreningExercises" EntityType="Self.TreningExercis" />
+    <EntitySet Name="Trenings" EntityType="Self.Trening" />
+    <EntitySet Name="UserPerformances" EntityType="Self.UserPerformance" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_dbo_Histories_dbo_Dimensions_dimensions_Id" Association="Self.FK_dbo_Histories_dbo_Dimensions_dimensions_Id">
+      <End Role="Dimensions" EntitySet="Dimensions" />
+      <End Role="Histories" EntitySet="Histories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Histories_dbo_UserPerformances_performance_id" Association="Self.FK_dbo_Histories_dbo_UserPerformances_performance_id">
+      <End Role="UserPerformances" EntitySet="UserPerformances" />
+      <End Role="Histories" EntitySet="Histories" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

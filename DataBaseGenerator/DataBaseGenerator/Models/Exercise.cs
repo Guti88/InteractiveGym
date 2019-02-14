@@ -9,9 +9,12 @@ namespace DataBaseGenerator.Models
 {
     public class Exercise
     {
+        [Key]
         public int Id { get; set; }
+
         [Required(ErrorMessage = "Pole nie może być puste")]
         public string Name { get; set; }
+
         public string Description { get; set; }
     }
 }
